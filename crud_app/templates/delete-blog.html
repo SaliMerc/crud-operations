@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6 text-center">Delete Blog</h1>
+<div class="container mx-auto px-4 max-w-2xl">
+  <p class="text-lg mb-4">Are you sure you want to delete the blog <strong>{{ blog.title }}</strong>?</p>
+  <form method="post" class="space-y-4">
+    {% csrf_token %}
+    <div class="flex space-x-4">
+      <button type="submit" class="flex-1 bg-[#DF5311] text-white font-semibold py-2 rounded-md hover:bg-[DF5331] transition-colors">Delete</button>
+      <a href="/" class="flex-1 bg-[#013237] text-white font-semibold py-2 rounded-md hover:bg-[#013237] transition-colors text-center">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

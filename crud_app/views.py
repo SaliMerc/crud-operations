@@ -48,8 +48,12 @@ def update_blog(request, id):
     context={'blog': blog}
     return render(request, 'update-blog.html', context)
 
-def delete_blog(request):
+def delete_blog(request, id):
     blog = get_object_or_404(Blog, id=id)
+    if request.method == 'POST':
+        blog.delete()
+        messages.success(request, 'Blog deleted successfully!')
+        return redirect('/')
     context={'blog': blog}
     return render(request, 'delete-blog.html', context)
 
