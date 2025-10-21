@@ -17,32 +17,38 @@ def blog_detail(request, id):
 
 def add_blog(request):
     if request.method == 'POST':
-        title = request.POST.get('title')
-        content = request.POST.get('content')
-        image = request.FILES.get('image')
-        author = request.POST.get('author')
+        try:
+            title = request.POST.get('title')
+            content = request.POST.get('content')
+            image = request.FILES.get('image')
+            author = request.POST.get('author')
 
-        Blog.objects.create(
-            title=title,
-            content=content,
-            image=image,
-            author=author
-        )
-        messages.success(request, 'Blog added successfully!')
-        return redirect('/')
+            Blog.objects.create(
+                title=title,
+                content=content,
+                image=image,
+                author=author
+            )
+            messages.success(request, 'Blog added successfully!')
+            return redirect('/')
+        except Exception as e:
+            messages.error(request, f'Oops! An error occured while adding the blog. Try again later.')
     return render(request, 'add-blog.html')
 
 def update_blog(request, id):
     blog = get_object_or_404(Blog, id=id)
     
     if request.method == 'POST':
-        blog.title = request.POST.get('title')
-        blog.content = request.POST.get('content')
-        if 'image' in request.FILES:
-            blog.image = request.FILES.get('image')
-        blog.author = request.POST.get('author')
-        blog.save()
-        messages.success(request, 'Blog added successfully!')
+        try:
+            blog.title = request.POST.get('title')
+            blog.content = request.POST.get('content')
+            if 'image' in request.FILES:
+                blog.image = request.FILES.get('image')
+            blog.author = request.POST.get('author')
+            blog.save()
+            messages.success(request, 'Blog added successfully!')
+        except Exception as e:
+            messages.error(request, f'Oops! An error occured while updating the blog. Try again later.')
         return redirect('/')
     
     context={'blog': blog}
@@ -51,9 +57,13 @@ def update_blog(request, id):
 def delete_blog(request, id):
     blog = get_object_or_404(Blog, id=id)
     if request.method == 'POST':
-        blog.delete()
-        messages.success(request, 'Blog deleted successfully!')
-        return redirect('/')
+        try:
+            blog.delete()
+            messages.success(request, 'Blog deleted successfully!')
+            return redirect('/')
+        except Exception as e:
+            messages.error(request, f'Oops! The blog could not be deleted. Try again later.')
+    
     context={'blog': blog}
     return render(request, 'delete-blog.html', context)
 
