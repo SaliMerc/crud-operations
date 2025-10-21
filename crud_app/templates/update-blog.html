@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6 text-center">Update Blog</h1>
+<div class="container mx-auto px-4 max-w-2xl">
+  {% if messages %}
+    {% for message in messages %}
+      <div class="bg-green-100 text-green-700 p-4 rounded-md mb-4">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+  <form method="post" enctype="multipart/form-data" class="space-y-4">
+    {% csrf_token %}
+    <div>
+      <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+      <input type="text" name="title" id="title" value="{{ blog.title }}" required class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500">
+    </div>
+    <div>
+      <label for="content" class="block text-sm font-medium text-gray-700">Content</label>
+      <textarea name="content" id="content" required class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500" rows="6">{{ blog.content }}</textarea>
+    </div>
+    <div>
+      <label for="image" class="block text-sm font-medium text-gray-700">Image (Optional)</label>
+      {% if blog.image %}
+        <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="w-32 h-32 object-cover rounded-md mb-2">
+        <p class="text-sm text-gray-500">Current image. Upload a new one to replace.</p>
+      {% endif %}
+      <input type="file" name="image" id="image" accept="image/*" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+    </div>
+    <div>
+      <label for="author" class="block text-sm font-medium text-gray-700">Author</label>
+      <input type="text" name="author" id="author" value="{{ blog.author }}" required class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500">
+    </div>
+    <button type="submit" class="w-full bg-[#013237] text-white font-semibold py-2 rounded-md hover:bg-[#013237] transition-colors">Update Blog</button>
+  </form>
+</div>
+{% endblock %}
