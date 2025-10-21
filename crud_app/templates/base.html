@@ -1,0 +1,51 @@
+{% load static %}
+
+{% comment %} Used tailwind for styling {% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Blog Zone||Your Corner for all teh currect happenings in the country</title>
+    <meta name="description" content="news, current news" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+  </head>
+  <body>
+    <header class="bg-[#013237] text-white shadow-md">
+      <nav class="container mx-auto px-4 py-10 flex justify-between items-center">
+        <a href="/" class="text-2xl font-semibold tracking-tight hover:text-gray-200 transition-colors">BlogZone</a>
+        
+        {% comment %} Desktop Menu {% endcomment %}
+        <div class="hidden md:flex space-x-6">
+          <a href="/" class="hover:text-gray-200 transition-colors">All Blogs</a>
+          <a href="{% url 'add-blog' %}" class="hover:text-gray-200 transition-colors">Add Blog</a>
+        </div>
+
+        {% comment %} mobile menu button   {% endcomment %}
+        <button id="menu-toggle" class="md:hidden focus:outline-none focus:ring-2 focus:ring-gray-200 rounded-md">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+      </nav>
+
+      {% comment %} Mobile Menu {% endcomment %}
+      <div id="mobile-menu" class="hidden md:hidden bg-[#013237] px-4 py-3 absolute top-16 right-0 w-3/4 h-50 z-10">
+        <div class="flex flex-col space-y-3 ">
+          <a href="/" class="hover:text-gray-200 transition-colors">All Blogs</a>
+          <a href="{% url 'add-blog' %}" class="hover:text-gray-200 transition-colors">Add Blog</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-6">
+      {% block content %}
+      {% comment %} Page content goes here. {% endcomment %}
+      {% endblock %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="{% static 'scripts/main.js' %}" defer></script>
+  </body>
+</html>
