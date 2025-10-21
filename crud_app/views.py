@@ -13,7 +13,7 @@ def all_blogs(request):
 def blog_detail(request, id):
     blog = get_object_or_404(Blog, id=id)
     context={'blog': blog}
-    return render(request, 'blog-detail.html', context)
+    return render(request, 'blog-details.html', context)
 
 def add_blog(request):
     if request.method == 'POST':

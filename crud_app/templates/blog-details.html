@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-6 max-w-3xl">
+  <h1 class="text-3xl font-bold mb-4">{{ blog.title }}</h1>
+  <p class="text-gray-600 mb-4">By {{ blog.author }} | {{ blog.created_at|date:"F d, Y" }}</p>
+  {% if blog.image %}
+    <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="w-full h-64 object-cover rounded-md mb-6">
+  {% else %}
+    <div class="w-full h-64 bg-[gray-200] rounded-md mb-6 flex items-center justify-center">
+      <span class="text-gray-500">No Image was uploaded for this blog</span>
+    </div>
+  {% endif %}
+  <div class="prose prose-lg max-w-none">
+    {% comment %} Autoescape used to provide whitespace and HTML formatting in blog content {% endcomment %}
+    {% autoescape off %} 
+    <p>{{ blog.content }}</p>
+    {% endautoescape %}
+    <p>{{ blog.content }}</p>
+  </div>
+  <a href="/" class="mt-6 inline-block bg-[#013237] text-white font-semibold py-2 px-4 rounded-md hover:bg-[#013247] transition-colors">Back to All Blogs</a>
+</div>
+{% endblock %}
